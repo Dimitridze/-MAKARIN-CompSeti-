@@ -1,0 +1,95 @@
+import java.util.Scanner;
+
+public class Lab1 {
+
+public static void main(String[] args) {
+Scanner in = new Scanner(System.in);
+
+double a, b, c, D, D1;
+double x1, x2, b_2a, D_2a;
+if (args.length > 0){
+a=Double.parseDouble(args[0]);
+b=Double.parseDouble(args[1]);
+c=Double.parseDouble(args[2]);
+System.out.println(a);
+System.out.println(b);
+System.out.println(c);
+System.out.println("Решаем уравнение" + a + "x^2 +" + b +"x +" + c +" = 0");
+}// args lenght 0. при вводе с консоли или файла
+else {
+Scanner num = new Scanner(System.in);
+
+
+System.out.println("Введите a: ");
+while(!num.hasNextDouble())
+{
+System.out.println("Это не число!");
+num.next();
+}
+a = num.nextDouble();
+System.out.println("Введите коэффициент b: ");
+while(!num.hasNextDouble())
+{
+System.out.println("Это не число!");
+num.next();
+}
+b = num.nextDouble();
+System.out.println("Введите коэффициент c: ");
+while(!num.hasNextDouble())
+{
+System.out.println("Это не число!");
+num.next();
+}
+c = num.nextDouble();
+} // обработка данных при вводе с клавиатуры
+
+if (a != 0){
+D = b * b - 4 * a * c;
+if(D >= 0)
+{
+ D1 = Math.sqrt(D);
+}
+else
+{
+     D1 = Math.sqrt(-D);
+}
+    
+
+if (D < 0)
+{
+System.out.println("D = " + D);
+System.out.println("X1 = " + -b/2*a + " + i * " + D1/2*a);
+System.out.println("X2 = " + -b/2*a + " - i * " + D1/2*a);
+}
+if(D == 0)
+{
+double X = -b/2*a;
+System.out.println("D = " + D);
+System.out.println("Уравнение имеет единственный корень: ");
+System.out.println("X = " + X);
+}
+if(D > 0)
+{
+double X1, X2;
+X1 = (-b + D1)/2*a;
+X2 = (-b-D1)/2*a;
+System.out.println("D = " + D);
+
+System.out.println("Корни уравнения: x1 = " + X1 + ", x2 = " + X2);
+}
+} // a != 0, решаем квадратное уравнение. Результат выписываем при всех допустимых D (вещественный/комплексный X)
+else // a = 0
+{
+if (b != 0)
+System.out.println("X = " + (-c/b));
+else // a = 0 && b = 0
+{
+if (c != 0)
+System.out.println("Уравнение решений не имеет");
+else
+System.out.println("Решением является любое число");
+}
+}
+System.out.println("__________________________________________");
+}
+}
