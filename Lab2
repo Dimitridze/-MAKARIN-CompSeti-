@@ -1,0 +1,76 @@
+class MultiThread extends Thread {
+    
+   private int n, m, cnt, cnt1, id;
+    MultiThread (int id, int m, int n) {
+        this.n = n;
+        this.m = m;
+        this.id = id;
+    }
+    
+    @Override
+    public void run() {
+        cnt = 0;
+        //cnt1 = 0;
+        String str = "";
+        for (int i = 1000000 * m; i <= 1000000 * n; i++)
+            if (i % 11 == 0 && i % 13 == 0 && i % 17 == 0) {
+                str += id + ":" +i + "; ";
+               // System.out.print(id + ": " +i + "; ");
+                cnt++;
+                //cnt1++;
+                if (cnt % 7 == 0) {
+                    //cnt1 = 0;
+                    System.out.println(str);
+                    str = "";
+                }
+            }
+        System.out.println("\nПоток " + id + " завершился и нашёл " + cnt + " чисел");
+    }
+    
+    public int getCnt() {
+        return cnt;
+    }
+}
+
+public class Lab2 {
+    
+    public static void main(String[] args) {
+        System.out.println("Старт");
+        long start = System.currentTimeMillis();
+        MultiThread Thread4 = new MultiThread(0, 1, 4);
+        Thread4.start();
+        try {
+            Thread4.join();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long end = System.currentTimeMillis();
+        long time2 = end - start;
+        start = System.currentTimeMillis();
+        MultiThread Thread1 = new MultiThread(1, 1, 2);
+        MultiThread Thread2 = new MultiThread(2, 2, 3);
+        MultiThread Thread3 = new MultiThread(3, 3, 4);
+        Thread1.start();
+        Thread2.start();
+        Thread3.start();
+        try {
+            Thread1.join();
+            Thread2.join();
+            Thread3.join();
+        }
+        catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        end = System.currentTimeMillis();
+        long time1 = end - start;
+        //System.out.println("Три потока завершились");
+        //System.out.println("Запуск полного цикла в одном потоке");
+        
+        
+        System.out.println("Три потока завершились за " + time1 + "мс " + "и нашли " + (Thread1.getCnt() + Thread2.getCnt() + Thread3.getCnt()) + " чисел");
+        System.out.println("Одиночный поток завершился за " + time2 + "мс " + "и нашёл " + Thread4.getCnt() + " чисел");
+        System.out.println("Главный поток завершился");
+    }
+}
